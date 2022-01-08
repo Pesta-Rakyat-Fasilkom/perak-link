@@ -4,18 +4,19 @@ import Tooltip from "@mui/material/Tooltip"
 import { v4 as uuid } from "uuid"
 import { Logo } from "@elements"
 import { socialMedia } from "./constants"
+import { Button } from "../Button"
 
 export const Footer: React.FC = () => {
   return (
     <div className="font-sans select-none bg-black-600">
-      <div className="flex items-center justify-between w-full h-24 px-6 mx-auto bg-black-600 md:px-12 max-w-7xl">
+      <div className="flex items-center justify-center space-y-3 md:space-y-0 md:justify-between flex-col md:flex-row w-full h-36 md:h-24 px-6 mx-auto bg-black-600 md:px-12 max-w-7xl">
         <div className="flex flex-col items-center justify-center lg:flex-row lg:space-x-3 gap-2">
           <Link href="/" passHref>
             <a className=" hidden lg:block">
               <Logo />
             </a>
           </Link>
-          <div>
+          <div className="text-center md:text-left">
             <p className="text-lemon text-shadow-salmon font-retro sm:text-md md:text-lg lg:text-xl">
               PERAK LINK
             </p>
@@ -39,6 +40,9 @@ export const Footer: React.FC = () => {
             </p>
           </div>
         </div>
+        <a href="https://perak.cs.ui.ac.id" rel="noreferrer" target="_blank">
+          <Button variant="variant2">Kunjungi PERAK 2022</Button>
+        </a>
       </div>
     </div>
   )
