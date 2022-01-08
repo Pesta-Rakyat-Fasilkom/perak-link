@@ -27,7 +27,6 @@ function PerakApp({ Component, pageProps }: AppProps) {
           <title>PERAK 2022</title>
         </Head>
         <Component {...pageProps} />
-        <Footer />
       </StateMachineProvider>
     </SnackbarProvider>
   )
