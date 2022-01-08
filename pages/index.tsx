@@ -6,7 +6,7 @@ import { Button, Header, Paragraph, Tabs, TextField } from "components/elements"
 const Home: NextPage = () => {
   return (
     <div className="bg-black-300 pb-16 min-h-screen pt-20 flex justify-center items-center">
-      <div className="flex flex-col items-center max-w-sm w-full space-y-4">
+      <div className="flex flex-col items-center max-w-sm w-full space-y-4 p-8 sm:p-0">
         <div className="text-center">
           <Header size="desktop" className="text-lemon text-shadow-salmon">
             PERAK.Link

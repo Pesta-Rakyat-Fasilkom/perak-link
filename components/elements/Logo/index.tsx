@@ -6,6 +6,6 @@ export const Logo = () => (
     imageUrl="/assets/logo.png"
     alt="PERAK 2022"
     fit="contain"
-    className="md:w-12 md:h-12 w-8 h-8"
+    className="md:w-12 md:h-12 w-12 h-12"
   />
 )
