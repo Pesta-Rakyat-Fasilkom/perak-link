@@ -18,6 +18,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   })
 
   let redirectUrl = linkQuery[0]?.redirectURL
-
-  res.status(201).redirect(redirectUrl)
+  if (redirectUrl !== undefined) return res.status(201).redirect(redirectUrl)
+  return res.status(201).redirect("https://facebook.com")
 }
