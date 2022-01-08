@@ -1,0 +1,10 @@
+export type Fit =
+  | "contain"
+  | "cover"
+  | "fill"
+  | "inherit"
+  | "initial"
+  | "none"
+  | "revert"
+  | "scale-down"
+  | "unset"

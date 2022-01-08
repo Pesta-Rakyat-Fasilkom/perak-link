@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "paths": {
+      "@api/*": ["pages/api/*"],
+      "@assets/*": ["public/assets/*"],
+      "@elements": ["components/elements"],
+      "@hooks": ["hooks"],
+      "@icons": ["components/elements/Icons"],
+      "@models": ["models"],
+      "@modules": ["components/modules"],
+      "@context": ["components/context"],
+      "@hooks": ["components/hooks"],
+      "@helpers": ["components/helpers"],
+      "@pages/*": ["pages/*"],
+      "@styles/*": ["styles/*"],
+      "@utils": ["utils"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es5"
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/elements/Modal/LoginModal"]
+}
