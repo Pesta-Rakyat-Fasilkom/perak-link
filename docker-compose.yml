@@ -1,0 +1,16 @@
+version: "3"
+services:
+  pg_peraklink:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: peraklink
+      POSTGRES_USER: peraklink
+      POSTGRES_PASSWORD: peraklink
+    volumes:
+      - pg_peraklink:/var/lib/postgresql/data:rw
+    ports:
+      - 5440:5432
+
+volumes:
+  pg_peraklink:

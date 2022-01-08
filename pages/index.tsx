@@ -2,8 +2,30 @@ import React, { useState } from "react"
 import type { NextPage } from "next"
 
 import { Button, Header, Paragraph, Tabs, TextField } from "components/elements"
+import { Data } from "@api/addLink"
 
 const Home: NextPage = () => {
+  const [url, setUrl] = useState<string>("")
+  const [newLink, setNewLink] = useState<string>("")
+  const [isFailed, setIsFailed] = useState<boolean>(false)
+
+  const generateLink = () => {
+    fetch(`http://${process.env.HOST || "localhost:3000"}/api/addLink`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        newLink: newLink,
+        url: url,
+      }),
+    }).then((res) => {
+      res.json().then((d: Data) => {
+        if (d.message === "failed") setIsFailed(true)
+      })
+    })
+  }
+
   return (
     <div className="bg-black-300 pb-16 min-h-screen pt-20 flex justify-center items-center">
       <div className="flex flex-col items-center max-w-sm w-full space-y-4">
@@ -17,9 +39,21 @@ const Home: NextPage = () => {
         </div>
 
         <div className="w-full space-y-3">
-          <TextField label="Masukkan URL"></TextField>
-          <TextField label="perak.link/"></TextField>
-          <Button variant="variant3" className="w-full flex items-center justify-center space-x-2">
+          <TextField
+            onChange={(e) => setUrl(e.target.value)}
+            value={url}
+            label="Masukkan URL"
+          ></TextField>
+          <TextField
+            onChange={(e) => setNewLink(e.target.value)}
+            value={newLink}
+            label="perak.link/"
+          ></TextField>
+          <Button
+            onClick={generateLink}
+            variant="variant3"
+            className="w-full flex items-center justify-center space-x-2"
+          >
             <svg
               width="25"
               height="24"
