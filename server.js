@@ -20,14 +20,15 @@ app.prepare().then(() => {
       pathname.includes("fonts") ||
       pathname.includes("assets") ||
       pathname === "/favicon.ico" ||
-      pathname === "vercel.svg"
+      pathname === "vercel.svg" ||
+      pathname === "/404"
     ) {
       handle(req, res, parsedUrl)
     } else {
       const parsedUrl = parse(`/api${pathname}`, true)
       handle(req, res, parsedUrl)
     }
-  }).listen(3001, (err) => {
+  }).listen(process.env.PORT || 3000, (err) => {
     if (err) throw err
     console.log("> Ready on http://localhost:3000")
   })

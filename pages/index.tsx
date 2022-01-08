@@ -1,24 +1,38 @@
 import React, { useState } from "react"
 import type { NextPage } from "next"
 
-import { Button, Header, Paragraph, Tabs, TextField } from "components/elements"
+import { Button, Header, Paragraph, Tabs, TextField, Clipboard } from "components/elements"
 import { useForm, Controller } from "react-hook-form"
 import { useSnackbar } from "notistack"
 
 const Home: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar()
+  const [response, setResponse] = useState<any>(null)
   const { control, handleSubmit } = useForm({
     mode: "onBlur",
   })
 
-  const onSubmit = (data: any) => {
-    console.log(data)
-    enqueueSnackbar("Anda berhasil membuat PERAK.Link baru!", { variant: "success" })
+  const onSubmit = async (data: any) => {
+    const res = await fetch("/api/addLink", {
+      method: "POST",
+      body: new URLSearchParams({
+        newLink: data.shortUrl,
+        url: data.longUrl,
+      }),
+    })
+
+    const apiData = await res.json()
+    if (!res.ok) {
+      enqueueSnackbar(apiData?.message, { variant: "error" })
+    } else {
+      enqueueSnackbar("Anda berhasil membuat PERAK.Link baru!", { variant: "success" })
+      setResponse(apiData)
+    }
   }
 
   return (
-    <div className="bg-black-300 pb-16 min-h-screen pt-20 flex justify-center items-center">
-      <div className="flex flex-col items-center max-w-sm w-full space-y-4 p-8 sm:p-0">
+    <div className="bg-black-300 pb-16 min-h-screen pt-20 flex flex-col space-y-8 justify-center items-center">
+      <div className="flex flex-col items-center max-w-sm w-full space-y-8 p-8 sm:p-0">
         <div className="text-center">
           <Header size="desktop" className="text-lemon text-shadow-salmon">
             PERAK.Link
@@ -115,6 +129,36 @@ const Home: NextPage = () => {
           </form>
         </div>
       </div>
+      {response && (
+        <div className="w-full max-w-md">
+          <div className="w-full space-y-4">
+            <Header size="sm" className="text-lemon text-shadow-salmon text-center">
+              PERAK.link mu
+            </Header>
+            <div className="border border-white rounded-lg px-4 py-2 flex justify-between items-center">
+              <div>
+                <Paragraph size="md" type="bold" className="text-lemon">
+                  perak.link/{response?.data?.newLink}
+                </Paragraph>
+                <Paragraph size="md" type="bold" className="text-white">
+                  {response?.data?.url}
+                </Paragraph>
+              </div>
+              <div
+                className="text-lemon cursor-pointer"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/${response?.data?.newLink}`
+                  )
+                  enqueueSnackbar("Link telah di-copy ke clipboard.", { variant: "info" })
+                }}
+              >
+                <Clipboard />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
